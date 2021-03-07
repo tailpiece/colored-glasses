@@ -1,25 +1,25 @@
-# Statue dyes
+# Colored glasses
 
-Something that dyes the plaster statue in a color like gold, silver or chocolate mint
+View the web with colored glasses. It is possible to see the plaster statue in gold, silver, copper, and bronze.
 
 ## Building and running on localhost
 
 First install dependencies:
 
 ```sh
-npm install
+yarn install
 ```
 
 To create a production build:
 
 ```sh
-npm run build
+yarn run build
 ```
 
 Running
 
 ```sh
-npm run dev
+yarn run dev
 ```
 
 ## Credits
