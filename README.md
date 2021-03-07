@@ -1,7 +1,6 @@
-# project template
+# Statue dyes
 
-内容が空のテンプレート。
-nodejsでライブリロード＆scssのbundle buildが出来る。
+Something that dyes the plaster statue in a color like gold, silver or chocolate mint
 
 ## Building and running on localhost
 
@@ -14,13 +13,13 @@ npm install
 To create a production build:
 
 ```sh
-npm build
+npm run build
 ```
 
 Running
 
 ```sh
-npm dev
+npm run dev
 ```
 
 ## Credits

@@ -1,15 +1,20 @@
 const path = require('path');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 const config = {
   entry: {
-    'bundle': './src/index.js',
+    'popup': './src/index.js',
   },
   output: {
-    path: path.join(__dirname, "public"),
-    filename: '[name].js', //バンドルのファイル名。[name]の部分にはentryで指定したキーが入る
+    path: path.join(__dirname, "docs"),
+    filename: '[name]/[name].js', //バンドルのファイル名。[name]の部分にはentryで指定したキーが入る
   },
   module: {
     rules: [
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      },
       {
         test: /\.js$/,
         use: 'babel-loader',
@@ -32,11 +37,20 @@ const config = {
       }
     ]
   },
+  resolve: {
+    extensions: [
+      '.js',
+      '.vue'
+    ]
+  },
+  plugins: [
+    new VueLoaderPlugin
+  ],
   //webpack-dev-server用設定
   devServer: {
     open: true, //ブラウザを自動で開く
-    openPage: "index.html", //自動で指定したページを開く
-    contentBase: path.join(__dirname, 'public'), // HTML等コンテンツのルートディレクトリ
+    openPage: "popup/popup.html", //自動で指定したページを開く
+    contentBase: path.join(__dirname, 'docs'), // HTML等コンテンツのルートディレクトリ
     watchContentBase: true, //コンテンツの変更監視をする
     port: 3000, // ポート番号
   }

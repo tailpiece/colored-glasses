@@ -1,7 +1,8 @@
+*.pem
+*.zip
 
 .cache/
 coverage/
-public/bundle.js
 node_modules/
 *.log
 

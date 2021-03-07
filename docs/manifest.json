@@ -1,0 +1,30 @@
+{
+  "manifest_version": 2,
+  "name": "Colored glasses",
+  "version": "1.0",
+  "author": "Tail",
+
+  "description": "View the web with colored glasses. It is possible to see the plaster statue in gold, silver, copper, and bronze.",
+  "icons": {
+    "16": "icon/16x16.png",
+    "48": "icon/48x48.png",
+    "128": "icon/128x128.png"
+  },
+
+  "browser_action": {
+    "default_icon": {
+      "16": "icon/16x16.png"
+    },
+    "default_popup": "popup/popup.html"
+  },
+
+  "content_scripts": [
+    {
+      "matches": [ "http://*/*", "https://*/*" ],
+      "js": ["content/gradientmaps.min.js", "content/content.js"]
+    }
+  ],
+  "permissions": [
+    "activeTab"
+  ]
+}
