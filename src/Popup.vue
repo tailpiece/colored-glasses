@@ -151,7 +151,7 @@ export default Vue.extend({
       this.gp.addHandler(0, '#000000', 1);
       this.gp.addHandler(100, '#ffffff', 1, {keepSelect: 1});
       this.gp.on('change', this.change);
-      this.gradient = "#00000 0%, #ffffff 100%";
+      this.gradient = "#000000 0%, #ffffff 100%";
       this.gp.emit('change');
     },
     /**
@@ -219,7 +219,7 @@ export default Vue.extend({
         if (finish === 1 || finish === undefined) {
           console.info(this.gradient);
         }
-        this.sendMessage({'gradient': this.gradient});
+        this.sendMessage({'gradient': this.addTransparent(this.gradient)});
       }
     },
     set(gradient) {
