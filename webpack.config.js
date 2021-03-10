@@ -6,7 +6,7 @@ const config = {
     'popup': './src/index.js',
   },
   output: {
-    path: path.join(__dirname, "docs"),
+    path: path.join(__dirname, "package"),
     filename: '[name]/[name].js', //バンドルのファイル名。[name]の部分にはentryで指定したキーが入る
   },
   module: {
@@ -50,7 +50,7 @@ const config = {
   devServer: {
     open: true, //ブラウザを自動で開く
     openPage: "popup/popup.html", //自動で指定したページを開く
-    contentBase: path.join(__dirname, 'docs'), // HTML等コンテンツのルートディレクトリ
+    contentBase: path.join(__dirname, 'package'), // HTML等コンテンツのルートディレクトリ
     watchContentBase: true, //コンテンツの変更監視をする
     port: 3000, // ポート番号
   }

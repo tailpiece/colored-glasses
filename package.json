@@ -1,8 +1,8 @@
 {
   "name": "colored-glasses",
-  "version": "1.1",
-  "description": "",
-  "main": "docs/popup/popup.html",
+  "version": "1.1.1",
+  "description": "This is a browser extension. View the web with colored glasses. For example, you can see the plaster statue in gold, silver, copper, and bronze.",
+  "main": "package/popup/popup.html",
   "keywords": [],
   "author": "Tail",
   "license": "MIT",
@@ -22,7 +22,9 @@
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/preset-env": "^7.12.16",
+    "babel-core": "^6.26.3",
     "babel-loader": "^8.2.2",
+    "babel-preset-minify": "^0.5.1",
     "colormap": "^2.3.2",
     "css-loader": "^5.0.2",
     "node-sass": "^5.0.0",
