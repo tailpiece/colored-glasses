@@ -276,7 +276,17 @@ export default Vue.extend({
       // console.info('sendMessage', msg);
       if (chrome && chrome.tabs) {
         chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-          chrome.tabs.sendMessage(tabs[0].id, msg);
+          chrome.tabs.executeScript(tabs[0].id, {
+            file: "/content/addGradientMaps.js"
+          });
+          chrome.tabs.executeScript(tabs[0].id, {
+            file: "/content/content.js"
+          });
+
+          // 上２つを追加する前にsendMessageすると1回目が失敗するので、少し待つ
+          setTimeout(() => {
+            chrome.tabs.sendMessage(tabs[0].id, msg);
+          }, 100);
         });
       }
     },
