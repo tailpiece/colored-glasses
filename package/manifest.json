@@ -4,28 +4,21 @@
   "description": "__MSG_ext_desc__",
   "default_locale": "en",
 
-  "version": "1.1",
+  "version": "1.2",
 
   "author": "Tail",
+  "homepage_url": "https://tailpiece.dev/colored-glasses/",
   "icons": {
     "16": "icon/16x16.png",
     "48": "icon/48x48.png",
     "128": "icon/128x128.png"
   },
-
   "browser_action": {
     "default_icon": {
       "16": "icon/16x16.png"
     },
     "default_popup": "popup/popup.html"
   },
-
-  "content_scripts": [
-    {
-      "matches": [ "http://*/*", "https://*/*" ],
-      "js": ["content/gradientmaps.min.js", "content/content.js"]
-    }
-  ],
   "permissions": [
     "activeTab"
   ]
