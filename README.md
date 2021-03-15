@@ -5,7 +5,7 @@ View the web with colored glasses. It is possible to see the plaster statue in g
 
 ## Browser Support
 
-This functionality is currently supported on desktop Chrome and Firefox.
+This functionality is currently supported on desktop Chrome and Firefox and edge.
 
 ## Contributing
 
@@ -35,7 +35,20 @@ Running
 yarn run dev
 ```
 
+## how to release (Notes for myself)
+
+### chrome
+- Zip the package and below
+
+### firefox
+- Zip the package and below
+- Zipped src and below (for source submission)
+
+### edge
+- Send crx packaged in chrome (can be packaged in edge)
+
 ## Credits
 
 - [Tail](https://tailpiece.dev/) - author
+- [Gradientmaps.js](https://github.com/tailpiece/gradientmaps) - gradient maps
 - Made with [createapp.dev](https://createapp.dev/) - project template

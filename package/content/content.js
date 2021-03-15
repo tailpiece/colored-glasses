@@ -2,8 +2,8 @@ if (!window.browserExtensionColoredGlasses) {
   function browserExtensionColoredGlasses(msg) {
     const body = document.getElementsByTagName('body');
     const main = document.getElementsByTagName('main');
-    const canvas = document.getElementsByTagName('canvas');
-    const target = canvas.length > 0 ? canvas[0] : main.length > 0 ? main[0] : body.length > 0 ? body[0] : undefined;
+    // const canvas = document.getElementsByTagName('canvas');
+    const target = body.length > 0 ? body[0] : undefined;
     if (!target) {
       return;
     }
