@@ -1,4 +1,5 @@
-/*
+if (!window.GradientMaps) {
+  /*
     Copyright 2013 Adobe Systems Inc.
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,11 +14,10 @@
     See the License for the specific language governing permissions and limitations under the License.
   */
 
-/*
-  Gradient Maps support
-  Author: Alan Greenblatt (blatt@adobe.com, @agreenblatt, blattchat.com)
-*/
-if (!window.GradientMaps) {
+  /*
+    Gradient Maps support
+    Author: Alan Greenblatt (blatt@adobe.com, @agreenblatt, blattchat.com)
+  */
   window.GradientMaps = function(scope) {
     function GradientMaps() {
       this.init();
