@@ -44,14 +44,21 @@ const config = {
     ]
   },
   plugins: [
-    new VueLoaderPlugin
+    new VueLoaderPlugin()
   ],
+  performance: {
+    maxEntrypointSize: 300000,
+    maxAssetSize: 300000
+  },
   //webpack-dev-server用設定
   devServer: {
-    open: true, //ブラウザを自動で開く
-    openPage: "popup/popup.html", //自動で指定したページを開く
-    contentBase: path.join(__dirname, 'package'), // HTML等コンテンツのルートディレクトリ
-    watchContentBase: true, //コンテンツの変更監視をする
+    open: {
+      target: "popup/popup.html", //自動で指定したページを開く
+    },
+    static: {
+      directory: path.join(__dirname, 'package'), // HTML等コンテンツのルートディレクトリ
+      watch: true, //コンテンツの変更監視をする
+    },
     port: 3000, // ポート番号
   }
 };
