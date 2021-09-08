@@ -1,6 +1,6 @@
 {
   "name": "colored-glasses",
-  "version": "1.2",
+  "version": "1.4.1",
   "description": "This is a browser extension. View the web with colored glasses. For example, you can see the plaster statue in gold, silver, copper, and bronze.",
   "main": "package/popup/popup.html",
   "keywords": [],
@@ -20,19 +20,19 @@
     "vue-swatches": "^2.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.16",
-    "@babel/preset-env": "^7.12.16",
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.2.2",
     "babel-preset-minify": "^0.5.1",
     "colormap": "^2.3.2",
-    "css-loader": "^5.0.2",
+    "css-loader": "^6.2.0",
     "node-sass": "^5.0.0",
-    "sass-loader": "^11.0.1",
+    "sass-loader": "^12.0.1",
     "style-loader": "^2.0.0",
-    "vue-loader": "^15.9.6",
+    "vue-loader": "^15.9.8",
     "vue-template-compiler": "^2.6.12",
-    "webpack": "^5.21.2",
+    "webpack": "^5.51.1",
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2"
   }
