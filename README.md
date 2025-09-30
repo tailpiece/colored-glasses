@@ -5,50 +5,30 @@ View the web with colored glasses. It is possible to see the plaster statue in g
 
 ## Browser Support
 
-This functionality is currently supported on desktop Chrome and Firefox and edge.
+Currently supported on desktop **Chrome**, **Firefox**, and **Edge**.
 
-## Contributing
+## Development
 
-- DO NOT directly modify the popup.js file in the package/popup. These files are automatically built from components located under the src/ directory.
-The project uses webpack to automate the build process.
+No build step is required.  
+Just clone this repository and load it as an "unpacked extension" in your browser:
 
-- Edit content / content.js directly.
-- Duplicate content / gradientmaps.js from the [GitHub repository](https://github.com/tailpiece/gradientmaps).
+- **Chrome / Edge**: `chrome://extensions/` → enable Developer mode → "Load unpacked" → select this folder.  
+- **Firefox**: `about:debugging#/runtime/this-firefox` → "Load Temporary Add-on" → select `manifest.json`.
 
-## Building and running on localhost
+## How to release (Notes for myself)
 
-First install dependencies:
+### Chrome
+- Zip the package and upload.
 
-```sh
-yarn install
-```
+### Firefox
+- Zip the package and upload.  
+- Source code (repository snapshot) may be required for submission.
 
-To create a production build:
-
-```sh
-yarn run build
-```
-
-Running
-
-```sh
-yarn run dev
-```
-
-## how to release (Notes for myself)
-
-### chrome
-- Zip the package and below
-
-### firefox
-- Zip the package and below
-- Zipped src and below (for source submission)
-
-### edge
-- Send crx packaged in chrome (can be packaged in edge)
+### Edge
+- Same as Chrome (a crx package can be generated in Edge).
 
 ## Credits
 
-- [Tail](https://tailpiece.dev/) - author
-- [Gradientmaps.js](https://github.com/tailpiece/gradientmaps) - gradient maps
+- [Tail](https://github.com/tailpiece) - author  
+- Thanks to [Gradientmaps.js](https://github.com/tailpiece/gradientmaps) and Vue.js for earlier reference and inspiration  
 - Made with [createapp.dev](https://createapp.dev/) - project template

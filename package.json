@@ -5,35 +5,5 @@
   "main": "package/popup/popup.html",
   "keywords": [],
   "author": "Tail",
-  "license": "MIT",
-  "scripts": {
-    "dev": "webpack serve --mode development",
-    "build": "webpack --mode production"
-  },
-  "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.34",
-    "@fortawesome/free-solid-svg-icons": "^5.15.2",
-    "@fortawesome/vue-fontawesome": "^2.0.2",
-    "grapick": "^0.1.13",
-    "jquery": "^3.5.1",
-    "vue": "^2.6.12",
-    "vue-swatches": "^2.1.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.15.0",
-    "@babel/preset-env": "^7.15.0",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^8.2.2",
-    "babel-preset-minify": "^0.5.1",
-    "colormap": "^2.3.2",
-    "css-loader": "^6.2.0",
-    "node-sass": "^6.0.1",
-    "sass-loader": "^12.0.1",
-    "style-loader": "^3.2.1",
-    "vue-loader": "^15.9.8",
-    "vue-template-compiler": "^2.6.12",
-    "webpack": "^5.51.1",
-    "webpack-cli": "^4.8.0",
-    "webpack-dev-server": "^4.1.1"
-  }
+  "license": "MIT"
 }
