@@ -30,5 +30,4 @@ Just clone this repository and load it as an "unpacked extension" in your browse
 ## Credits
 
 - [Tail](https://github.com/tailpiece) - author  
-- Thanks to [Gradientmaps.js](https://github.com/tailpiece/gradientmaps) and Vue.js for earlier reference and inspiration  
-- Made with [createapp.dev](https://createapp.dev/) - project template
+- Thanks to [Gradientmaps.js](https://github.com/tailpiece/gradientmaps) and Vue.js for earlier reference and inspiration

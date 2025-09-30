@@ -112,7 +112,6 @@ function onChange(finish) {
 
 function buildPresets() {
   const grid = $('#presetGrid');
-  grid.innerHTML = '';
   PRESETS.forEach(stops => {
     const b = document.createElement('button');
     b.style.backgroundImage = `linear-gradient(to bottom right, ${stops})`;
