@@ -1,6 +1,6 @@
 {
   "name": "colored-glasses",
-  "version": "1.5",
+  "version": "1.6",
   "description": "This is a browser extension. View the web with colored glasses. For example, you can see the plaster statue in gold, silver, copper, and bronze.",
   "main": "package/popup/popup.html",
   "keywords": [],

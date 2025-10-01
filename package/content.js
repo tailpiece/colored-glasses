@@ -5,6 +5,11 @@
   const SVG_ID = 'cg-defs';
   const FILTER_ID = 'colored-glasses-map';
 
+  // --- util ---
+  function elNS(name) {
+    return document.createElementNS('http://www.w3.org/2000/svg', name);
+  }
+
   // 優先順でターゲット要素を取得
   function pickTargetContainer() {
     const viewer = document.getElementById('viewer');
@@ -65,40 +70,104 @@
     return { r: tr.join(' '), g: tg.join(' '), b: tb.join(' ') };
   }
 
+  // SVGフィルタを構築/確保
   function ensureFilter() {
+    // <svg id="cg-defs" style="position:absolute;width:0;height:0;overflow:hidden">
     let svg = document.getElementById(SVG_ID);
     if (!svg) {
-      svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
-      svg.id = SVG_ID;
-      Object.assign(svg.style,{position:'absolute',width:'0',height:'0',overflow:'hidden'});
+      svg = elNS('svg');
+      svg.setAttribute('id', SVG_ID);
+      const st = svg.style;
+      st.position = 'absolute';
+      st.width = '0';
+      st.height = '0';
+      st.overflow = 'hidden';
       document.documentElement.appendChild(svg);
-      svg.innerHTML = `<defs>
-        <filter id="${FILTER_ID}" color-interpolation-filters="sRGB">
-          <feColorMatrix type="matrix"
-            values="0.2126 0.7152 0.0722 0 0
-                    0.2126 0.7152 0.0722 0 0
-                    0.2126 0.7152 0.0722 0 0
-                    0       0      0      1 0" result="lum"/>
-          <feComponentTransfer in="lum" result="mapped">
-            <feFuncR type="table" tableValues="0 1"/>
-            <feFuncG type="table" tableValues="0 1"/>
-            <feFuncB type="table" tableValues="0 1"/>
-          </feComponentTransfer>
-          <feComposite in="mapped" in2="SourceAlpha" operator="in" result="final"/>
-          <feMerge><feMergeNode in="final"/></feMerge>
-        </filter>
-      </defs>`;
     }
-    return svg.querySelector(`#${FILTER_ID}`);
+
+    // <defs>
+    let defs = svg.querySelector('defs');
+    if (!defs) {
+      defs = elNS('defs');
+      svg.appendChild(defs);
+    }
+
+    // <filter id="colored-glasses-map" color-interpolation-filters="sRGB">
+    let filter = defs.querySelector(`#${FILTER_ID}`);
+    if (!filter) {
+      filter = elNS('filter');
+      filter.setAttribute('id', FILTER_ID);
+      filter.setAttribute('color-interpolation-filters', 'sRGB');
+      defs.appendChild(filter);
+
+      // <feColorMatrix type="matrix" ... result="lum" />
+      const feColorMatrix = elNS('feColorMatrix');
+      feColorMatrix.setAttribute('type', 'matrix');
+      feColorMatrix.setAttribute(
+        'values',
+        [
+          '0.2126 0.7152 0.0722 0 0',
+          '0.2126 0.7152 0.0722 0 0',
+          '0.2126 0.7152 0.0722 0 0',
+          '0       0      0      1 0'
+        ].join(' ')
+      );
+      feColorMatrix.setAttribute('result', 'lum');
+      filter.appendChild(feColorMatrix);
+
+      // <feComponentTransfer in="lum" result="mapped">
+      const feComp = elNS('feComponentTransfer');
+      feComp.setAttribute('in', 'lum');
+      feComp.setAttribute('result', 'mapped');
+
+      const feR = elNS('feFuncR');
+      feR.setAttribute('type', 'table');
+      feR.setAttribute('tableValues', '0 1');
+
+      const feG = elNS('feFuncG');
+      feG.setAttribute('type', 'table');
+      feG.setAttribute('tableValues', '0 1');
+
+      const feB = elNS('feFuncB');
+      feB.setAttribute('type', 'table');
+      feB.setAttribute('tableValues', '0 1');
+
+      feComp.appendChild(feR);
+      feComp.appendChild(feG);
+      feComp.appendChild(feB);
+      filter.appendChild(feComp);
+
+      // <feComposite in="mapped" in2="SourceAlpha" operator="in" result="final"/>
+      const feCompst = elNS('feComposite');
+      feCompst.setAttribute('in', 'mapped');
+      feCompst.setAttribute('in2', 'SourceAlpha');
+      feCompst.setAttribute('operator', 'in');
+      feCompst.setAttribute('result', 'final');
+      filter.appendChild(feCompst);
+
+      // <feMerge><feMergeNode in="final"/></feMerge>
+      const feMerge = elNS('feMerge');
+      const feMergeNode = elNS('feMergeNode');
+      feMergeNode.setAttribute('in', 'final');
+      feMerge.appendChild(feMergeNode);
+      filter.appendChild(feMerge);
+    }
+
+    return filter;
   }
 
   function updateFilter(gradient) {
     const t = buildTables(gradient);
     if (!t) return;
     const f = ensureFilter();
-    f.querySelector('feFuncR').setAttribute('tableValues', t.r);
-    f.querySelector('feFuncG').setAttribute('tableValues', t.g);
-    f.querySelector('feFuncB').setAttribute('tableValues', t.b);
+
+    const feR = f.querySelector('feFuncR');
+    const feG = f.querySelector('feFuncG');
+    const feB = f.querySelector('feFuncB');
+
+    if (feR) feR.setAttribute('tableValues', t.r);
+    if (feG) feG.setAttribute('tableValues', t.g);
+    if (feB) feB.setAttribute('tableValues', t.b);
 
     const target = pickTargetContainer();
     if (target) {
@@ -108,7 +177,7 @@
 
   function removeFilter() {
     const svg = document.getElementById(SVG_ID);
-    if (svg) svg.remove();
+    if (svg && svg.parentNode) svg.parentNode.removeChild(svg);
     const target = pickTargetContainer();
     if (target) target.style.filter = 'none';
   }

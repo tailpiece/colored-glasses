@@ -5,27 +5,32 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Gradient Picker</title>
-    <link rel="stylesheet" href="vendor/bootstrap.min.css" />
-    <link rel="stylesheet" href="vendor/grapick.min.css" />
     <link rel="stylesheet" href="popup.css" />
 </head>
 
 <body>
     <div class="wrap">
         <div class="pane active" id="colors">
-            <div class="grid" id="presetGrid"></div>
+            <div class="grid" id="presetGrid">
+                <button id="btn00" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 0%, rgb(182, 123, 3) 18%, rgb(218, 175, 8) 45%, rgb(254, 233, 160) 70%, rgb(218, 175, 8) 85%, rgb(182, 123, 3) 90%, rgb(182, 123, 3) 98%, rgb(255, 255, 255) 99%);"></button>
+                <button id="btn01" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 0%, rgb(117, 117, 117) 18%, rgb(158, 158, 158) 45%, rgb(232, 232, 232) 70%, rgb(158, 158, 158) 85%, rgb(117, 117, 117) 90%, rgb(117, 117, 117) 98%, rgb(255, 255, 255) 99%);"></button>
+                <button id="btn02" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 0%, rgb(202, 115, 69) 18%, rgb(161, 69, 33) 45%, rgb(255, 222, 202) 70%, rgb(161, 69, 33) 85%, rgb(202, 115, 69) 90%, rgb(202, 115, 69) 98%, rgb(255, 255, 255) 99%);"></button>
+                <button id="btn03" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 0%, rgb(68, 202, 133) 18%, rgb(26, 112, 67) 45%, rgb(124, 243, 186) 70%, rgb(41, 137, 70) 85%, rgb(49, 160, 112) 90%, rgb(49, 160, 112) 98%, rgb(255, 255, 255) 99%);"></button>
+                <button id="btn04" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 0%, rgb(22, 21, 50) 18%, rgb(107, 99, 146) 47%, rgb(247, 135, 135) 70%, rgb(255, 228, 168) 92%, rgb(255, 255, 255) 99%);"></button>
+                <button id="btn05" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 15%, rgb(135, 9, 74) 30%, rgb(255, 103, 115) 50%, rgb(254, 131, 158) 70%, rgb(252, 184, 155) 85%, rgb(248, 224, 202) 96%, rgb(255, 255, 255) 100%);"></button>
+                <button id="btn06" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 0%, rgb(35, 21, 87) 19%, rgb(68, 16, 122) 29%, rgb(255, 92, 146) 67%, rgb(255, 179, 138) 91%, rgb(254, 227, 190) 99%);"></button>
+                <button id="btn07" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 0%, rgb(88, 32, 14) 9%, rgb(180, 83, 19) 35%, rgb(201, 107, 44) 45%, rgb(254, 166, 144) 55%, rgb(247, 135, 135) 70%, rgb(255, 228, 168) 92%, rgb(255, 255, 255) 99%);"></button>
+                <button id="btn08" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 0%, rgb(7, 49, 85) 18%, rgb(54, 131, 150) 47%, rgb(247, 135, 135) 70%, rgb(255, 228, 168) 92%, rgb(255, 255, 255) 99%);"></button>
+                <button id="btn09" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 15%, rgb(135, 9, 74) 30%, rgb(255, 74, 122) 50%, rgb(255, 119, 112) 70%, rgb(255, 196, 132) 85%, rgb(248, 224, 202) 96%, rgb(255, 255, 255) 100%);"></button>
+                <button id="btn10" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 8%, rgb(63, 43, 136) 27%, rgb(255, 74, 122) 50%, rgb(255, 119, 112) 70%, rgb(255, 196, 132) 90%, rgb(248, 224, 202) 99%);"></button>
+                <button id="btn11" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 0%, rgb(118, 61, 61) 30%, rgb(94, 186, 151) 62%, rgb(255, 255, 255) 99%);"></button>
+                <button id="btn12" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 0%, rgb(7, 84, 51) 18%, rgb(54, 150, 100) 47%, rgb(247, 135, 135) 70%, rgb(255, 228, 168) 92%, rgb(255, 255, 255) 99%);"></button>
+                <button id="btn13" style="background-image: linear-gradient(to right bottom, rgb(0, 126, 167) 0%, rgb(128, 206, 215) 98%, rgb(255, 255, 255) 99%);"></button>
+                <button id="btn14" style="background-image: linear-gradient(to right bottom, rgb(255, 36, 0) 0%, rgb(232, 29, 29) 13%, rgb(232, 183, 29) 26%, rgb(227, 232, 29) 39%, rgb(29, 232, 64) 52%, rgb(29, 221, 232) 65%, rgb(43, 29, 232) 78%, rgb(221, 0, 243) 91%, rgb(255, 255, 255) 100%);"></button>
+            </div>
             <button class="btn full danger" id="btnRemove">remove</button>
         </div>
-
-        <div class="pane" id="editor">
-            <div class="gp-wrap">
-                <div id="grapick"></div>
-            </div>
-            <div class="preview" id="previewEditor"></div>
-        </div>
     </div>
-
-    <script src="vendor/grapick.min.js"></script>
     <script src="popup.js"></script>
 </body>
 
