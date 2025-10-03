@@ -26,22 +26,30 @@ async function ensureInjected(tabId) {
 // --- 初期化 ---
 window.addEventListener("DOMContentLoaded", () => {
   const grid = $("#presetGrid");
-  const preview = $("#previewEditor");
+  if (!grid) {
+    console.warn("#presetGrid が見つかりません");
+    return;
+  }
 
   // 各ボタンにイベントをアタッチ
   grid.querySelectorAll("button").forEach((btn) => {
     btn.addEventListener("click", () => {
-      const bg = btn.style.backgroundImage; // ← linear-gradient(...) そのまま
+      const bg = btn.style.backgroundImage; // linear-gradient(...) の文字列
       gradient = bg;
-      preview.style.backgroundImage = bg;   // プレビュー更新
-      sendMessageAsync({ gradient: bg });   // ページに適用
+
+      // ページに適用
+      sendMessageAsync({ gradient: bg });
     });
   });
 
   // remove ボタン
-  $("#btnRemove").addEventListener("click", () => {
-    gradient = null;
-    preview.style.backgroundImage = "none";
-    sendMessageAsync({ gradient: "remove" });
-  });
+  const btnRemove = $("#btnRemove");
+  if (btnRemove) {
+    btnRemove.addEventListener("click", () => {
+      gradient = null;
+      sendMessageAsync({ gradient: "remove" });
+    });
+  } else {
+    console.warn("#btnRemove が見つかりません");
+  }
 });
