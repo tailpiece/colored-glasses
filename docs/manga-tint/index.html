@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manga Tint — A Color Filter for Grayscale Manga</title>
+  <meta name="description" content="Apply soft gradient colors to grayscale manga and images directly in your browser. Manga Tint is a simple one-click browser extension.">
+  <link rel="canonical" href="https://tailpiece.github.io/manga-tint/">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <meta name="theme-color" content="#f7f3ea">
+
+  <meta property="og:title" content="Manga Tint — A Color Filter for Grayscale Manga">
+  <meta property="og:description" content="Apply soft gradient colors to grayscale manga and images directly in your browser. Manga Tint is a simple one-click browser extension.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tailpiece.github.io/manga-tint/">
+  <meta property="og:image" content="https://tailpiece.github.io/colored-glasses/manga-tint/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Manga Tint — A Color Filter for Grayscale Manga">
+  <meta name="twitter:description" content="Apply soft gradient colors to grayscale manga and images directly in your browser. Manga Tint is a simple one-click browser extension.">
+  <meta name="twitter:image" content="https://tailpiece.github.io/colored-glasses/manga-tint/assets/og-image.png">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip-link" href="#demo" data-i18n="skip">Skip to demo</a>
+
+<!-- SVG filter: identical structure to the Manga Tint extension (content.js) -->
+<svg class="sr-only-svg" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="mt-map" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" result="lum"
+        values="0.2126 0.7152 0.0722 0 0
+                0.2126 0.7152 0.0722 0 0
+                0.2126 0.7152 0.0722 0 0
+                0 0 0 1 0"/>
+      <feComponentTransfer in="lum" result="mapped">
+        <feFuncR type="table" tableValues="0 1"/>
+        <feFuncG type="table" tableValues="0 1"/>
+        <feFuncB type="table" tableValues="0 1"/>
+      </feComponentTransfer>
+      <feComposite in="mapped" in2="SourceAlpha" operator="in" result="final"/>
+      <feMerge><feMergeNode in="final"/></feMerge>
+    </filter>
+  </defs>
+</svg>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="wordmark" href="#top">Manga&nbsp;Tint</a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="#demo" data-i18n="navDemo">Demo</a>
+      <a href="#how" data-i18n="navHow">How it works</a>
+      <a href="#about" data-i18n="navAbout">About</a>
+      <a href="#faq" data-i18n="navFaq">FAQ</a>
+    </nav>
+    <div class="header-actions">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" id="langEn" aria-pressed="true" lang="en">EN</button><button type="button" id="langJa" aria-pressed="false" lang="ja">JP</button>
+      </div>
+      <a class="btn btn-primary btn-small" href="https://chromewebstore.google.com/detail/oaifndelnecmalnoehifdljjocmlclmd" data-i18n="ctaChrome">Add to Chrome</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ===================== Hero ===================== -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="kicker"><span lang="en">Manga Tint</span> <span class="kicker-sub">formerly <span lang="ja">色めがね</span></span></p>
+        <h1 data-i18n="heroTitle">Make black-and-white manga feel&nbsp;softer.</h1>
+        <p class="lead" data-i18n="heroLead">Choose a soft gradient and apply it instantly in your browser. Manga Tint changes how grayscale pages are displayed without modifying the original artwork.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/oaifndelnecmalnoehifdljjocmlclmd" data-i18n="ctaChrome">Add to Chrome</a>
+          <a class="btn btn-ghost" href="#demo" data-i18n="ctaDemo">Try the demo</a>
+        </div>
+        <p class="hero-note" data-i18n="heroNote">A tiny browser extension. Pick a tint. Read in a softer tone.</p>
+        <ul class="store-links" aria-label="Also available for">
+          <li><a href="https://addons.mozilla.org/firefox/addon/colored-glasses/">Firefox</a></li>
+          <li><a href="https://microsoftedge.microsoft.com/addons/detail/%E8%89%B2%E3%82%81%E3%81%8C%E3%81%AD/daimedeceggigmmiodidggcpcddblncd">Edge</a></li>
+        </ul>
+      </div>
+
+      <!-- ============ Before / After comparison demo ============ -->
+      <div class="hero-demo" id="demo">
+        <h2 class="demo-title" data-i18n="demoTitle">Try the difference yourself.</h2>
+        <p class="demo-hint" data-i18n="demoHint">Pick a tint and drag the slider to compare.</p>
+
+        <div class="compare panel" id="compare" style="--pos:50%">
+          <img class="compare-base" src="assets/manga-tint-comic-demo.webp" width="1200" height="1694"
+               alt="A grayscale manga page: a woman visits a quiet café on a rainy evening"
+               data-i18n-attr="alt:altComic" fetchpriority="high">
+          <div class="compare-top" aria-hidden="true">
+            <img id="tintedImg" class="is-tinted" src="assets/manga-tint-comic-demo.webp" width="1200" height="1694" alt="">
+          </div>
+          <input type="range" class="compare-range" id="compareRange" min="0" max="100" step="0.5" value="50"
+                 aria-label="Comparison slider: left shows the original grayscale page, right shows the tinted page"
+                 data-i18n-attr="aria-label:sliderLabel">
+          <div class="compare-divider" aria-hidden="true"></div>
+          <div class="compare-handle" aria-hidden="true"><span>&#9664;&#9654;</span></div>
+          <span class="compare-tag tag-original" data-i18n="tagOriginal">Original</span>
+          <span class="compare-tag tag-tinted" data-i18n="tagTinted">Tinted</span>
+        </div>
+
+        <!-- Color chips: gradients copied verbatim from the extension popup -->
+        <div class="chips" id="chips" role="group" aria-label="Tint options" data-i18n-attr="aria-label:chipsLabel">
+          <button type="button" class="chip" aria-pressed="false" aria-label="Gold tint" title="Gold tint" data-i18n-attr="aria-label:chip00;title:chip00" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 0%, rgb(182, 123, 3) 18%, rgb(218, 175, 8) 45%, rgb(254, 233, 160) 70%, rgb(218, 175, 8) 85%, rgb(182, 123, 3) 90%, rgb(182, 123, 3) 98%, rgb(255, 255, 255) 99%);"></button>
+          <button type="button" class="chip" aria-pressed="false" aria-label="Silver tint" title="Silver tint" data-i18n-attr="aria-label:chip01;title:chip01" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 0%, rgb(117, 117, 117) 18%, rgb(158, 158, 158) 45%, rgb(232, 232, 232) 70%, rgb(158, 158, 158) 85%, rgb(117, 117, 117) 90%, rgb(117, 117, 117) 98%, rgb(255, 255, 255) 99%);"></button>
+          <button type="button" class="chip" aria-pressed="false" aria-label="Copper tint" title="Copper tint" data-i18n-attr="aria-label:chip02;title:chip02" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 0%, rgb(202, 115, 69) 18%, rgb(161, 69, 33) 45%, rgb(255, 222, 202) 70%, rgb(161, 69, 33) 85%, rgb(202, 115, 69) 90%, rgb(202, 115, 69) 98%, rgb(255, 255, 255) 99%);"></button>
+          <button type="button" class="chip" aria-pressed="false" aria-label="Green tint" title="Green tint" data-i18n-attr="aria-label:chip03;title:chip03" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 0%, rgb(68, 202, 133) 18%, rgb(26, 112, 67) 45%, rgb(124, 243, 186) 70%, rgb(41, 137, 70) 85%, rgb(49, 160, 112) 90%, rgb(49, 160, 112) 98%, rgb(255, 255, 255) 99%);"></button>
+          <button type="button" class="chip" aria-pressed="false" aria-label="Twilight purple tint" title="Twilight purple tint" data-i18n-attr="aria-label:chip04;title:chip04" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 0%, rgb(22, 21, 50) 18%, rgb(107, 99, 146) 47%, rgb(247, 135, 135) 70%, rgb(255, 228, 168) 92%, rgb(255, 255, 255) 99%);"></button>
+          <button type="button" class="chip" aria-pressed="false" aria-label="Rose pink tint" title="Rose pink tint" data-i18n-attr="aria-label:chip05;title:chip05" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 15%, rgb(135, 9, 74) 30%, rgb(255, 103, 115) 50%, rgb(254, 131, 158) 70%, rgb(252, 184, 155) 85%, rgb(248, 224, 202) 96%, rgb(255, 255, 255) 100%);"></button>
+          <button type="button" class="chip" aria-pressed="false" aria-label="Violet pink tint" title="Violet pink tint" data-i18n-attr="aria-label:chip06;title:chip06" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 0%, rgb(35, 21, 87) 19%, rgb(68, 16, 122) 29%, rgb(255, 92, 146) 67%, rgb(255, 179, 138) 91%, rgb(254, 227, 190) 99%);"></button>
+          <button type="button" class="chip" aria-pressed="false" aria-label="Warm amber tint" title="Warm amber tint" data-i18n-attr="aria-label:chip07;title:chip07" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 0%, rgb(88, 32, 14) 9%, rgb(180, 83, 19) 35%, rgb(201, 107, 44) 45%, rgb(254, 166, 144) 55%, rgb(247, 135, 135) 70%, rgb(255, 228, 168) 92%, rgb(255, 255, 255) 99%);"></button>
+          <button type="button" class="chip" aria-pressed="false" aria-label="Blue gray to peach tint" title="Blue gray to peach tint" data-i18n-attr="aria-label:chip08;title:chip08" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 0%, rgb(7, 49, 85) 18%, rgb(54, 131, 150) 47%, rgb(247, 135, 135) 70%, rgb(255, 228, 168) 92%, rgb(255, 255, 255) 99%);"></button>
+          <button type="button" class="chip" aria-pressed="false" aria-label="Coral pink tint" title="Coral pink tint" data-i18n-attr="aria-label:chip09;title:chip09" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 15%, rgb(135, 9, 74) 30%, rgb(255, 74, 122) 50%, rgb(255, 119, 112) 70%, rgb(255, 196, 132) 85%, rgb(248, 224, 202) 96%, rgb(255, 255, 255) 100%);"></button>
+          <button type="button" class="chip" aria-pressed="false" aria-label="Purple coral tint" title="Purple coral tint" data-i18n-attr="aria-label:chip10;title:chip10" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 8%, rgb(63, 43, 136) 27%, rgb(255, 74, 122) 50%, rgb(255, 119, 112) 70%, rgb(255, 196, 132) 90%, rgb(248, 224, 202) 99%);"></button>
+          <button type="button" class="chip" aria-pressed="false" aria-label="Mauve teal tint" title="Mauve teal tint" data-i18n-attr="aria-label:chip11;title:chip11" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 0%, rgb(118, 61, 61) 30%, rgb(94, 186, 151) 62%, rgb(255, 255, 255) 99%);"></button>
+          <button type="button" class="chip" aria-pressed="false" aria-label="Forest green to peach tint" title="Forest green to peach tint" data-i18n-attr="aria-label:chip12;title:chip12" style="background-image: linear-gradient(to right bottom, rgb(51, 51, 51) 0%, rgb(7, 84, 51) 18%, rgb(54, 150, 100) 47%, rgb(247, 135, 135) 70%, rgb(255, 228, 168) 92%, rgb(255, 255, 255) 99%);"></button>
+          <button type="button" class="chip" aria-pressed="false" aria-label="Sky blue tint" title="Sky blue tint" data-i18n-attr="aria-label:chip13;title:chip13" style="background-image: linear-gradient(to right bottom, rgb(0, 126, 167) 0%, rgb(128, 206, 215) 98%, rgb(255, 255, 255) 99%);"></button>
+          <button type="button" class="chip" aria-pressed="false" aria-label="Rainbow tint" title="Rainbow tint" data-i18n-attr="aria-label:chip14;title:chip14" style="background-image: linear-gradient(to right bottom, rgb(255, 36, 0) 0%, rgb(232, 29, 29) 13%, rgb(232, 183, 29) 26%, rgb(227, 232, 29) 39%, rgb(29, 232, 64) 52%, rgb(29, 221, 232) 65%, rgb(43, 29, 232) 78%, rgb(221, 0, 243) 91%, rgb(255, 255, 255) 100%);"></button>
+          <button type="button" class="chip chip-original" id="chipOriginal" aria-pressed="false" data-i18n="tagOriginal">Original</button>
+        </div>
+        <p class="demo-footnote" data-i18n="demoFootnote">These are the actual gradients used in the extension.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== How it works ===================== -->
+  <section class="section" id="how">
+    <div class="container">
+      <h2 data-i18n="howTitle">How it works</h2>
+      <ol class="steps">
+        <li class="panel step">
+          <span class="step-num" aria-hidden="true">1</span>
+          <h3 data-i18n="how1Title">Pick a gradient</h3>
+          <p data-i18n="how1Body">Choose a tint from the simple color panel.</p>
+        </li>
+        <li class="panel step">
+          <span class="step-num" aria-hidden="true">2</span>
+          <h3 data-i18n="how2Title">Apply instantly</h3>
+          <p data-i18n="how2Body">The filter changes the page as you view it in your browser.</p>
+        </li>
+        <li class="panel step">
+          <span class="step-num" aria-hidden="true">3</span>
+          <h3 data-i18n="how3Title">Return anytime</h3>
+          <p data-i18n="how3Body">Switch back to the original grayscale view with one click.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===================== Video ===================== -->
+  <section class="section section-alt" id="video">
+    <div class="container narrow">
+      <h2 data-i18n="videoTitle">See the change in motion.</h2>
+      <p class="section-lead" data-i18n="videoLead">A short before-and-after demonstration will be added here.</p>
+      <div class="video-wrap panel">
+        <video id="demoVideo" muted loop playsinline controls preload="metadata"
+               width="1280" height="720"
+               poster="assets/demo-before-after-poster.webp">
+          <source src="assets/demo-before-after.mp4" type="video/mp4">
+        </video>
+        <button type="button" class="video-play" id="videoPlayBtn" hidden aria-label="Play demo video" data-i18n-attr="aria-label:videoPlay">&#9654;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== About ===================== -->
+  <section class="section" id="about">
+    <div class="container narrow">
+      <h2 data-i18n="aboutTitle">A small tool, on purpose.</h2>
+      <p class="section-lead" data-i18n="aboutBody">Manga Tint is a tiny browser extension for applying soft gradient colors to grayscale manga and images. Choose a tint with one click and return to the original view anytime.</p>
+      <ul class="about-list">
+        <li data-i18n="about1">It never edits the original image — only how the page is displayed in your browser.</li>
+        <li data-i18n="about2">It is not full colorization, and it does not use AI. It applies a preset gradient filter.</li>
+        <li data-i18n="about3">Some websites or image viewers may prevent the filter from applying correctly.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== Privacy ===================== -->
+  <section class="section section-alt" id="privacy">
+    <div class="container narrow">
+      <h2 data-i18n="privacyTitle">Privacy</h2>
+      <p class="section-lead" data-i18n="privacyBody">The visual effect is applied locally in your browser. Manga Tint does not collect or transmit any data, and does not upload the images you are viewing.</p>
+      <p><a class="text-link" href="https://tailpiece.github.io/colored-glasses/privacy-en.html" id="privacyLink" data-i18n="privacyLinkLabel" data-i18n-attr="href:privacyHref">Read the full privacy policy</a></p>
+    </div>
+  </section>
+
+  <!-- ===================== Usage note ===================== -->
+  <section class="section" id="usage">
+    <div class="container narrow">
+      <h2 data-i18n="usageTitle">Usage note</h2>
+      <p class="section-lead" data-i18n="usageBody">Only publish transformed screenshots or recordings when you own the content or have permission to use it.</p>
+      <p><a class="text-link" href="https://tailpiece.github.io/colored-glasses/index-en.html" data-i18n="usageLinkLabel" data-i18n-attr="href:guideHref">More details on the 色めがね guide page (previous name)</a></p>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="section section-alt" id="faq">
+    <div class="container narrow">
+      <h2>FAQ</h2>
+      <div class="faq-list">
+        <details class="panel">
+          <summary data-i18n="faq1Q">Does Manga Tint permanently edit images?</summary>
+          <p data-i18n="faq1A">No. It changes how the page is displayed in your browser. The original files are never modified.</p>
+        </details>
+        <details class="panel">
+          <summary data-i18n="faq2Q">Is this an AI coloring tool?</summary>
+          <p data-i18n="faq2A">No. It applies a preset gradient filter to the displayed page. It does not analyze or understand the content.</p>
+        </details>
+        <details class="panel">
+          <summary data-i18n="faq3Q">Does it work on every website?</summary>
+          <p data-i18n="faq3A">Not always. Some websites or image viewers may prevent the filter from working correctly.</p>
+        </details>
+        <details class="panel">
+          <summary data-i18n="faq4Q">Can I create my own palette?</summary>
+          <p data-i18n="faq4A">No. The current version provides a fixed set of tint options.</p>
+        </details>
+        <details class="panel">
+          <summary data-i18n="faq5Q">Can I return to the original view?</summary>
+          <p data-i18n="faq5A">Yes. Use the remove option in the extension to switch back to the original view at any time.</p>
+        </details>
+      </div>
+      <p class="faq-more"><a class="text-link" href="https://tailpiece.github.io/colored-glasses/index-en.html" data-i18n="faqMore" data-i18n-attr="href:guideHref">View the detailed guide (色めがね — previous name)</a></p>
+    </div>
+  </section>
+
+  <!-- ===================== Final CTA ===================== -->
+  <section class="section final-cta" id="get">
+    <div class="container final-grid">
+      <div>
+        <h2 data-i18n="finalTitle">Read grayscale manga in a softer tone.</h2>
+        <p class="section-lead" data-i18n="finalBody">Simple filters. No accounts. No complicated settings.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/oaifndelnecmalnoehifdljjocmlclmd" data-i18n="ctaChrome">Add to Chrome</a>
+          <a class="btn btn-ghost" href="https://addons.mozilla.org/firefox/addon/colored-glasses/" data-i18n="ctaFirefox">Add to Firefox</a>
+          <a class="btn btn-ghost" href="https://microsoftedge.microsoft.com/addons/detail/%E8%89%B2%E3%82%81%E3%81%8C%E3%81%AD/daimedeceggigmmiodidggcpcddblncd" data-i18n="ctaEdge">Add to Edge</a>
+        </div>
+      </div>
+      <img class="final-character" src="assets/manga-tint-character.webp" width="800" height="800" loading="lazy"
+           alt="A grayscale illustration of a smiling woman" data-i18n-attr="alt:altCharacter">
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <p class="footer-brand">Manga Tint</p>
+      <p class="footer-sub">formerly <span lang="ja">色めがね</span></p>
+    </div>
+    <nav aria-label="Footer">
+      <ul class="footer-links">
+        <li><a href="https://tailpiece.github.io/colored-glasses/index-en.html" data-i18n="footGuide" data-i18n-attr="href:guideHref">Guide (色めがね)</a></li>
+        <li><a href="#usage" data-i18n="usageTitle">Usage note</a></li>
+        <li><a href="https://tailpiece.github.io/colored-glasses/privacy-en.html" data-i18n="footPrivacy" data-i18n-attr="href:privacyHref">Privacy Policy</a></li>
+        <li><a href="https://github.com/tailpiece/colored-glasses">GitHub</a></li>
+        <li><a href="mailto:addon@tailpiece.dev" data-i18n="footContact">Contact</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="Stores">
+      <ul class="footer-links">
+        <li><a href="https://chromewebstore.google.com/detail/oaifndelnecmalnoehifdljjocmlclmd">Chrome Web Store</a></li>
+        <li><a href="https://addons.mozilla.org/firefox/addon/colored-glasses/">Firefox Add-ons</a></li>
+        <li><a href="https://microsoftedge.microsoft.com/addons/detail/%E8%89%B2%E3%82%81%E3%81%8C%E3%81%AD/daimedeceggigmmiodidggcpcddblncd">Edge Add-ons</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="container">
+    <p class="copyright">&copy; 2026 Tail</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
