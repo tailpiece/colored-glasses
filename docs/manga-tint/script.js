@@ -167,6 +167,7 @@
   const I18N = {
     en: {
       skip: "Skip to demo",
+      formerly: "formerly Colored Glasses (色めがね)",
       navDemo: "Demo", navHow: "How it works", navAbout: "About", navFaq: "FAQ",
       ctaChrome: "Add to Chrome", ctaFirefox: "Add to Firefox", ctaEdge: "Add to Edge", ctaDemo: "Try the demo",
       heroTitle: "Make black-and-white manga feel softer.",
@@ -203,7 +204,7 @@
       privacyHref: "https://tailpiece.github.io/colored-glasses/privacy-en.html",
       usageTitle: "Usage note",
       usageBody: "Only publish transformed screenshots or recordings when you own the content or have permission to use it.",
-      usageLinkLabel: "More details on the 色めがね guide page (previous name)",
+      usageLinkLabel: "More details on the Colored Glasses (色めがね) guide page (previous name)",
       guideHref: "https://tailpiece.github.io/colored-glasses/index-en.html",
       faq1Q: "Does Manga Tint permanently edit images?",
       faq1A: "No. It changes how the page is displayed in your browser. The original files are never modified.",
@@ -215,15 +216,16 @@
       faq4A: "No. The current version provides a fixed set of tint options.",
       faq5Q: "Can I return to the original view?",
       faq5A: "Yes. Use the remove option in the extension to switch back to the original view at any time.",
-      faqMore: "View the detailed guide (色めがね — previous name)",
+      faqMore: "View the detailed guide (Colored Glasses — previous name)",
       finalTitle: "Read grayscale manga in a softer tone.",
       finalBody: "Simple filters. No accounts. No complicated settings.",
-      footGuide: "Guide (色めがね)",
+      footGuide: "Guide (Colored Glasses)",
       footPrivacy: "Privacy Policy",
       footContact: "Contact"
     },
     ja: {
       skip: "デモへスキップ",
+      formerly: "旧名称：色めがね（Colored Glasses）",
       navDemo: "デモ", navHow: "使い方", navAbout: "このツールについて", navFaq: "FAQ",
       ctaChrome: "Chromeに追加", ctaFirefox: "Firefoxに追加", ctaEdge: "Edgeに追加", ctaDemo: "デモを試す",
       heroTitle: "白黒の漫画を、やわらかな色調で。",
