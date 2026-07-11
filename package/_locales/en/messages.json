@@ -1,4 +1,4 @@
 {
   "ext_name": { "message": "Manga Tint" },
-  "ext_desc": { "message": "The page you are viewing, it is displayed as close to gold, silver, copper, bronze color through the colored glasses (filter)." }
+  "ext_desc": { "message": "Apply soft gradient color filters to grayscale manga and images. One click to tint the page you are viewing, one click to return." }
 }
